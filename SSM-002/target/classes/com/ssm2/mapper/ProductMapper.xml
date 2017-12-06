@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm2.mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.ssm2.domain.Product">
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="productionDate" jdbcType="DATE" property="productiondate" />
+  </resultMap>
+  
+  <select id="selectall" resultType="com.ssm2.domain.Product">
+      select * from t_user
+  </select>
+  
+  <insert id="insert" parameterType="com.ssm2.domain.Product">
+    insert into t_user (name, description, price, 
+      productionDate)
+    values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, 
+      #{productiondate,jdbcType=DATE})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.ssm2.domain.Product">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="productiondate != null">
+        productionDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="productiondate != null">
+        #{productiondate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>
